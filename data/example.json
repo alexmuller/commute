@@ -1,0 +1,10 @@
+[
+  {
+    "mode": "walking",
+    "duration": 15
+  },
+  {
+    "mode": "tube",
+    "duration": 30
+  }
+]
