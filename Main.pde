@@ -1,3 +1,6 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 static int ROW_HEIGHT = 10;
@@ -20,6 +23,8 @@ void setup() {
 
     ArrayList<Day> days = new ArrayList<Day>();
 
+    SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+
     int xPos = ROW_HEIGHT,
         yPos = ROW_HEIGHT;
 
@@ -28,7 +33,14 @@ void setup() {
         JSONObject datum = data.getJSONObject(i);
         JSONArray rawSegments = datum.getJSONArray("segments");
         ArrayList<Segment> segments = new ArrayList<Segment>();
+        String dateString = datum.getString("date");
+        Date date = new Date();
 
+        try {
+            date = dateformat.parse(dateString);
+        } catch(ParseException e) {
+            println("Could not parse date from JSON: " + dateString);
+        }
 
         for (int j = 0; j < rawSegments.size(); j++) {
             JSONObject rawSegment = rawSegments.getJSONObject(j);
@@ -39,7 +51,7 @@ void setup() {
         }
 
         Commute commute = new Commute(segments);
-        Day day = new Day(commute);
+        Day day = new Day(date, commute);
 
         day.draw(xPos, yPos);
 
