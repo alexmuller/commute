@@ -18,21 +18,33 @@ void setup() {
 
     JSONArray data = loadJSONArray("example.json");
 
-    ArrayList<Segment> segments = new ArrayList<Segment>();
+    ArrayList<Day> days = new ArrayList<Day>();
 
-    int initialXPos = 10,
-        initialYPos = 10;
+    int xPos = ROW_HEIGHT,
+        yPos = ROW_HEIGHT;
 
     for (int i = 0; i < data.size(); i++) {
-        Segment segment = new Segment(
-            data.getJSONObject(i).getInt("duration"),
-            modeMap.get(data.getJSONObject(i).getString("mode")));
-        segments.add(segment);
+        // Iterate over each day
+        JSONObject datum = data.getJSONObject(i);
+        JSONArray rawSegments = datum.getJSONArray("segments");
+        ArrayList<Segment> segments = new ArrayList<Segment>();
+
+
+        for (int j = 0; j < rawSegments.size(); j++) {
+            JSONObject rawSegment = rawSegments.getJSONObject(j);
+            Segment segment = new Segment(
+                rawSegment.getInt("duration"),
+                modeMap.get(rawSegment.getString("mode")));
+            segments.add(segment);
+        }
+
+        Commute commute = new Commute(segments);
+        Day day = new Day(commute);
+
+        day.draw(xPos, yPos);
+
+        yPos = yPos + (ROW_HEIGHT * 2);
     }
-
-    Commute commute = new Commute(segments);
-
-    commute.draw(initialXPos, initialYPos);
 
     noLoop();
 }

@@ -1,10 +1,26 @@
 [
   {
-    "mode": "walking",
-    "duration": 15
+    "segments": [
+      {
+        "mode": "walking",
+        "duration": 15
+      },
+      {
+        "mode": "tube",
+        "duration": 30
+      }
+    ]
   },
   {
-    "mode": "tube",
-    "duration": 30
+    "segments": [
+      {
+        "mode": "bus",
+        "duration": 40
+      },
+      {
+        "mode": "walking",
+        "duration": 20
+      }
+    ]
   }
 ]
