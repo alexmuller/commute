@@ -18,6 +18,9 @@ void setup() {
     modeMap.put("tube", new Mode(color(0, 25, 168)));
     modeMap.put("walking", new Mode(color(130, 130, 130)));
     modeMap.put("cycling", new Mode(color(252, 76, 2)));
+    // Temporary mode to visually separate commutes until this Processing
+    // code supports morning and evening commutes.
+    modeMap.put("spacer", new Mode(color(255, 255, 255)));
 
     JSONArray data = loadJSONArray("example.json");
 
