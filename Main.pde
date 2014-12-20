@@ -3,6 +3,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
+static int ROW_GAP = 5;
 static int ROW_HEIGHT = 10;
 
 Map<String, Mode> modeMap = new HashMap<String, Mode>();
@@ -63,7 +64,7 @@ void setup() {
 
         day.draw(xPos, yPos);
 
-        yPos = yPos + (ROW_HEIGHT * 2);
+        yPos = yPos + (ROW_HEIGHT + ROW_GAP);
     }
 
     noLoop();

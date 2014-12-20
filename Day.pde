@@ -21,10 +21,8 @@ class Day {
         xPos += 100;
         morningCommute.draw(xPos, yPos);
 
-        int duration = morningCommute.duration(),
-            roundedDuration = ((duration + 99) / 100) * 100;
+        xPos += 150;
 
-        xPos += roundedDuration;
         eveningCommute.draw(xPos, yPos);
     }
 }
