@@ -1,7 +1,7 @@
 [
   {
     "date": "2014-11-25",
-    "segments": [
+    "morning": [
       {
         "mode": "walking",
         "duration": 15
@@ -10,11 +10,17 @@
         "mode": "tube",
         "duration": 30
       }
+    ],
+    "evening": [
+      {
+        "mode": "cycling",
+        "duration": 40
+      }
     ]
   },
   {
     "date": "2014-11-26",
-    "segments": [
+    "morning": [
       {
         "mode": "bus",
         "duration": 40
@@ -22,6 +28,12 @@
       {
         "mode": "walking",
         "duration": 20
+      }
+    ],
+    "evening": [
+      {
+        "mode": "tube",
+        "duration": 60
       }
     ]
   }

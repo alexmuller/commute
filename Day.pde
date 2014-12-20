@@ -3,12 +3,14 @@ import java.util.Date;
 
 class Day {
     Date date;
-    Commute commute;
+    Commute morningCommute;
+    Commute eveningCommute;
     SimpleDateFormat outputDateFormat;
 
-    Day(Date tempDate, Commute tempCommute) {
+    Day(Date tempDate, Commute tempMorningCommute, Commute tempEveningCommute) {
         date = tempDate;
-        commute = tempCommute;
+        morningCommute = tempMorningCommute;
+        eveningCommute = tempEveningCommute;
         outputDateFormat = new SimpleDateFormat("EEE d MMM yyyy");
     }
 
@@ -16,6 +18,13 @@ class Day {
         fill(0, 0, 0);
         textSize(10);
         text(outputDateFormat.format(date), xPos, yPos + 9);
-        commute.draw(xPos + 100, yPos);
+        xPos += 100;
+        morningCommute.draw(xPos, yPos);
+
+        int duration = morningCommute.duration(),
+            roundedDuration = ((duration + 99) / 100) * 100;
+
+        xPos += roundedDuration;
+        eveningCommute.draw(xPos, yPos);
     }
 }
