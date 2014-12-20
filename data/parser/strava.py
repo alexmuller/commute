@@ -2,6 +2,8 @@ import logging
 
 from stravalib.client import Client
 
+from helpers import timedelta_to_minutes
+
 logging.basicConfig()
 
 def filter_activities(activities):
@@ -31,8 +33,7 @@ def fetch(strava_access_token):
 
     for activity in filter_activities(activities):
         commute_date = activity.start_date_local.date()
-        duration_minutes = int(
-            round(activity.elapsed_time.total_seconds() / 60))
+        duration_minutes = timedelta_to_minutes(activity.elapsed_time)
 
         this_days_activities = [
             day for day in parsed_activities if day['date'] == commute_date]
