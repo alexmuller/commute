@@ -26,32 +26,11 @@ def fetch(strava_access_token):
 
     parsed_activities = []
 
-    spacer_segment = {
-        'mode': 'spacer',
-        'duration': 10,
-    }
-
     for activity in filter_activities(activities):
-        commute_date = activity.start_date_local.date()
-        duration_minutes = timedelta_to_minutes(activity.elapsed_time)
-
-        this_days_activities = [
-            day for day in parsed_activities if day['date'] == commute_date]
-
-        segment = {
+        parsed_activities.append({
             'mode': 'cycling',
-            'duration': duration_minutes,
-        }
-
-        if this_days_activities:
-            this_days_activities[0]['segments'].append(spacer_segment)
-            this_days_activities[0]['segments'].append(segment)
-        else:
-            parsed_activities.append({
-                'date': commute_date,
-                'segments': [
-                    segment,
-                ],
-            })
+            'duration': timedelta_to_minutes(activity.elapsed_time),
+            'timestamp': activity.start_date_local,
+        })
 
     return parsed_activities

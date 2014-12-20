@@ -5,6 +5,8 @@ import os
 import mollusc
 import strava
 
+from itertools import groupby
+
 def json_serialiser(obj):
     """Serialise datetime dates as part of a JSON file"""
     if isinstance(obj, datetime.date):
@@ -25,7 +27,30 @@ mollusc_data = mollusc.fetch(MOLLUSC_ENDPOINT, MOLLUSC_AUTH)
 
 data = strava_data + mollusc_data
 
-data.sort(key=lambda day: day['date'], reverse=True)
+data.sort(key=lambda day: day['timestamp'], reverse=True)
+
+grouped_data = []
+
+for key, group in groupby(data, lambda elem: elem['timestamp'].date()):
+    morning = []
+    evening = []
+
+    for segment in list(group):
+        datum = {
+            'mode': segment['mode'],
+            'duration': segment['duration'],
+        }
+        if segment['timestamp'].hour < 12:
+            morning.append(datum)
+        else:
+            evening.append(datum)
+
+    day = {
+        'date': key,
+        'morning': list(reversed(morning)),
+        'evening': list(reversed(evening)),
+    }
+    grouped_data.append(day)
 
 with open('../data.json', 'w') as outfile:
-    json.dump(data, outfile, default=json_serialiser, indent=4)
+    json.dump(grouped_data, outfile, default=json_serialiser, indent=4)
