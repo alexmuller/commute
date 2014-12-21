@@ -1,8 +1,14 @@
 class Mode {
+    String name;
     color colour;
 
-    Mode(int tempColour) {
+    Mode(String tempName, int tempColour) {
+        name = tempName;
         colour = tempColour;
+    }
+
+    String getName() {
+        return name;
     }
 
     color getColour() {
